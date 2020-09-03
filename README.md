@@ -6,7 +6,8 @@ Debug your Livewire component state.
 
 ### Installation
 
-This extension does not yet have a stable version publicly available.
+This extension does not yet have a stable version publicly available. 
+You can download the [pre-release](https://github.com/beyondcode/livewire-devtools/releases) version and manually install it.
 
 
 ### Manual Installation
@@ -14,7 +15,7 @@ This extension does not yet have a stable version publicly available.
 1. Clone this repo
 2. `npm install` (Or `yarn install` if you are using yarn as the package manager)
 3. `npm run build`
-4. Open Chrome extension page
+4. Open Chrome extension page (chrome://extensions)
 5. Check "developer mode"
 6. Click "load unpacked extension", and choose `shells/chrome`.
 
