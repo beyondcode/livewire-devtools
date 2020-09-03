@@ -8,9 +8,8 @@ Debug your Livewire component state.
 
 This extension does not yet have a stable version publicly available.
 
-### Manual Installation
 
-**Make sure you are using Node 6+ and NPM 3+**
+### Manual Installation
 
 1. Clone this repo
 2. `npm install` (Or `yarn install` if you are using yarn as the package manager)
