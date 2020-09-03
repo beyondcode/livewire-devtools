@@ -57,4 +57,6 @@ This extension does not yet have a stable version publicly available.
 
 ### License
 
+Thanks goes out to Vue devtools, which were used as a starting point for this.
+
 [MIT](http://opensource.org/licenses/MIT)
