@@ -57,11 +57,12 @@ export function unHighlight () {
 
 export function getInstanceRect (instance) {
   
-  if (!inDoc(instance.el.el)) {
+  const element = instance.el.el || instance.el;
+  if (!inDoc(element)) {
     return
   }
-  if (instance.el.el.nodeType === 1) {
-    return instance.el.el.getBoundingClientRect()
+  if (element.nodeType === 1) {
+    return element.getBoundingClientRect()
   }
 }
 /**

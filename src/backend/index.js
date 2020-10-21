@@ -35,6 +35,9 @@ export function initBackend (_bridge) {
 }
 
 function connect () {
+  if (! hook.Livewire.devToolsEnabled) {
+    return;
+  }
 
   hook.currentTab = 'components'
   bridge.on('switch-tab', tab => {
@@ -130,8 +133,10 @@ function connect () {
 
   window.__LIVEWIRE_DEVTOOLS_INSPECT__ = inspectInstance
 
+  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received';
+
   bridge.log('backend ready.')
-  bridge.send('ready', '(Unknown version)') // TODO: Detect version
+  bridge.send('ready', livewireHook === 'message.received' ? '2.x' : '1.x') // TODO: Detect version
   console.log(
     `%c livewire-devtools %c Detected Livewire %c`,
     'background:#3182ce ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
@@ -139,7 +144,7 @@ function connect () {
     'background:transparent'
   )
 
-  hook.Livewire.hook('responseReceived', (component, payload) => {
+  hook.Livewire.hook(livewireHook, (component, payload) => {
     flush();
   })
 

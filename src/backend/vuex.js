@@ -21,22 +21,46 @@ export function initVuexBackend (hook, bridge) {
     })
   })
 
-  hook.Livewire.hook('responseReceived', (component, payload) => {
-    if (!recording) return
-    bridge.send('vuex:mutation', {
-      checksum: payload.checksum || payload.serverMemo.checksum,
-      component: component.id,
-      mutation: {
-        type: component.name || component.fingerprint.name,
-        payload: stringify(payload)
-      },
-      timestamp: Date.now(),
-      snapshot: stringify({
-        state: component.data,
-        getters: {}
+  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received';
+
+  if (livewireHook === 'message.received') {
+    hook.Livewire.hook(livewireHook, (message, component) => {
+      if (!recording) return
+      const payload = message.response;
+      
+      bridge.send('vuex:mutation', {
+        checksum: payload.checksum || payload.serverMemo.checksum,
+        component: component.id,
+        mutation: {
+          type: component.name || component.fingerprint.name,
+          payload: stringify(payload)
+        },
+        timestamp: Date.now(),
+        snapshot: stringify({
+          state: component.data,
+          getters: {}
+        })
       })
     })
-  })
+  } else {
+    hook.Livewire.hook(livewireHook, (component, payload) => {
+      console.log(component, payload);
+      if (!recording) return
+      bridge.send('vuex:mutation', {
+        checksum: payload.checksum || payload.serverMemo.checksum,
+        component: component.id,
+        mutation: {
+          type: component.name || component.fingerprint.name,
+          payload: stringify(payload)
+        },
+        timestamp: Date.now(),
+        snapshot: stringify({
+          state: component.data,
+          getters: {}
+        })
+      })
+    })
+  }
 
   // devtool -> application
   bridge.on('vuex:travel-to-state', state => {

@@ -108,7 +108,7 @@ export default {
       if (!this.hasTarget) return
       if (this.$isChrome) {
         chrome.devtools.inspectedWindow.eval(
-          `inspect(window.__LIVEWIRE_DEVTOOLS_INSTANCE_MAP__.get("${this.target.id}").el.el)`
+          `inspect(window.__LIVEWIRE_DEVTOOLS_INSTANCE_MAP__.get("${this.target.id}").el.el || window.__LIVEWIRE_DEVTOOLS_INSTANCE_MAP__.get("${this.target.id}").el)`
         )
       } else {
         window.alert('DOM inspection is not supported in this shell.')

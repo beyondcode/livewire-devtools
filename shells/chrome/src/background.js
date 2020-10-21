@@ -96,11 +96,3 @@ let activeTabId
 chrome.tabs.onActivated.addListener(({ tabId }) => {
   activeTabId = tabId
 })
-
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-  chrome.runtime.sendMessage({
-    vueContextMenu: {
-      id: info.menuItemId
-    }
-  })
-})

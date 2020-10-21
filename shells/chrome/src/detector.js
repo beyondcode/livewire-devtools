@@ -11,7 +11,7 @@ function detect (win) {
   setTimeout(() => {
     win.postMessage({
       livewireDetected: true,
-      devtoolsEnabled: true // TODO: Detect devtools from Livewire settings
+      devtoolsEnabled: win.livewire.devtoolsEnabled || false
     }, '*')
 
     win.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__.emit('init', win.livewire);
