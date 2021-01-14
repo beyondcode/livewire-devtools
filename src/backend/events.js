@@ -8,12 +8,13 @@ export function initEventsBackend (Livewire, bridge) {
     recording = enabled
   })
 
-  function logEvent(Livewire, type, instanceId, eventName, payload) {
+  function logEvent(Livewire, type, instance, eventName, payload) {
     // The string check is important for compat with 1.x where the first
     // argument may be an object instead of a string.
     // this also ensures the event is only logged for direct $emit (source)
     // instead of by $dispatch/$broadcast
     if (typeof eventName === 'string') {
+      const instanceId = instance.getAttribute('wire:id');
       const component = Livewire.components.componentsById[instanceId];
 
       bridge.send('event:triggered', stringify({
