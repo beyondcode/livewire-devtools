@@ -21,8 +21,9 @@ export function initVuexBackend (hook, bridge) {
     })
   })
 
-  hook.Livewire.hook('responseReceived', (component, payload) => {
+  hook.Livewire.hook('message.received', (message, payload) => {
     if (!recording) return
+    let component = message.component
     bridge.send('vuex:mutation', {
       checksum: payload.checksum || payload.serverMemo.checksum,
       component: component.id,

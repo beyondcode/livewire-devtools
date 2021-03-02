@@ -139,7 +139,7 @@ function connect () {
     'background:transparent'
   )
 
-  hook.Livewire.hook('responseReceived', (component, payload) => {
+  hook.Livewire.hook('message.received', (message, payload) => {
     flush();
   })
 
