@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(request => {
 // Page context menu entry
 
 function onContextMenu ({ id }) {
-  if (id === 'vue-inspect-instance') {
+  if (id === 'inspect-instance') {
     const src = `window.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__`
 
     chrome.devtools.inspectedWindow.eval(src, function (res, err) {
@@ -63,11 +63,11 @@ function onContextMenu ({ id }) {
       }
       if (typeof res !== 'undefined' && res) {
         panelAction(() => {
-          chrome.runtime.sendMessage('vue-get-context-menu-target')
-        }, 'Open Vue devtools to see component details')
+          chrome.runtime.sendMessage('get-context-menu-target')
+        }, 'Open Livewire devtools to see component details')
       } else {
         pendingAction = null
-        toast('No Vue component was found', 'warn')
+        toast('No Livewire component was found', 'warn')
       }
     })
   }

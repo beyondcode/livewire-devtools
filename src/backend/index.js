@@ -35,6 +35,10 @@ export function initBackend (_bridge) {
 }
 
 function connect () {
+  if (typeof hook.Livewire === 'undefined') {
+    return;
+  }
+
   if (! hook.Livewire.devToolsEnabled) {
     return;
   }
@@ -486,8 +490,8 @@ function setStateValue ({ id, path, value, newKey, remove }) {
 }
 
 function initRightClick () {
-  // Start recording context menu when Vue is detected
-  // event if Vue devtools are not loaded yet
+  // Start recording context menu when Livewire is detected
+  // event if Livewire devtools are not loaded yet
   document.addEventListener('contextmenu', event => {
     const el = event.target
     if (el) {

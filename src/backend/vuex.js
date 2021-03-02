@@ -44,7 +44,6 @@ export function initVuexBackend (hook, bridge) {
     })
   } else {
     hook.Livewire.hook(livewireHook, (component, payload) => {
-      console.log(component, payload);
       if (!recording) return
       bridge.send('vuex:mutation', {
         checksum: payload.checksum || payload.serverMemo.checksum,

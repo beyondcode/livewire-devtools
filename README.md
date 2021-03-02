@@ -1,6 +1,6 @@
 # Livewire Devtools
 
-Debug your Livewire component state.
+Debug your Livewire component state from within your browser.
 
 <p align="center"><img src="https://raw.githubusercontent.com/beyondcode/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
 

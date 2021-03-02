@@ -8,41 +8,48 @@ export function initEventsBackend (Livewire, bridge) {
     recording = enabled
   })
 
-  function logEvent(Livewire, type, instanceId, eventName, payload) {
+  function logEvent(Livewire, type, instance, eventName, payload) {
     // The string check is important for compat with 1.x where the first
     // argument may be an object instead of a string.
     // this also ensures the event is only logged for direct $emit (source)
     // instead of by $dispatch/$broadcast
     if (typeof eventName === 'string') {
-      const component = Livewire.components.componentsById[instanceId];
+
+      let instanceId;
+      let instanceName = 'unknown';
+
+      if (instance !== null) {
+        let component = Livewire.components.componentsById[instanceId];
+        instanceId = instance.getAttribute('wire:id');
+        instanceName = component.name || component.fingerprint.name
+      }
 
       bridge.send('event:triggered', stringify({
         eventName,
         type,
         payload,
         instanceId,
-        instanceName: component.name || component.fingerprint.name,
+        instanceName,
         timestamp: Date.now()
       }))
     }
   }
 
-  function wrap (method) {
-    const original = Livewire.components[method]
-    if (original) {
-      Livewire.components[method] = function (...args) {
-        const res = original.apply(this, args)
-        if (recording) {
-          logEvent(Livewire, method, args[0], args[1], args.slice(2))
-        }
-        return res
+  function wrapEmit () {
+    const original = Livewire.components['emit']
+
+    Livewire.components['emit'] = function (...args) {
+      const res = original.apply(this, args)
+      if (recording) {
+        logEvent(Livewire, 'emit', null, args[0], args.slice(1))
       }
+      return res
     }
   }
 
-  wrap('emit')
-  wrap('emitUp')
-  wrap('emitSelf')
-  //wrap('$broadcast')
-  //wrap('$dispatch')
+  wrapEmit();
+  // wrap('emitUp')
+  // wrap('emitSelf')
+  // wrap('$broadcast')
+  // wrap('$dispatch')
 }

@@ -34,7 +34,7 @@ if (isChrome) {
       onPanelShown()
     } else if (request === 'vue-panel-hidden') {
       onPanelHidden()
-    } else if (request === 'vue-get-context-menu-target') {
+    } else if (request === 'get-context-menu-target') {
       getContextMenuInstance()
     }
   })

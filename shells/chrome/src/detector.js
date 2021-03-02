@@ -9,12 +9,15 @@ window.addEventListener('message', e => {
 
 function detect (win) {
   setTimeout(() => {
+    if (!win.Livewire) {
+      return;
+    }
     win.postMessage({
       livewireDetected: true,
-      devtoolsEnabled: win.livewire.devtoolsEnabled || false
+      devToolsEnabled: win.Livewire.devToolsEnabled || false
     }, '*')
 
-    win.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__.emit('init', win.livewire);
+    win.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__.emit('init', win.Livewire);
   }, 100)
 }
 
