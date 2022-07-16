@@ -31,7 +31,7 @@ export function highlight (instance) {
   const rect = getInstanceRect(instance)
   if (rect) {
     let content = ''
-    let name = instance.name || instance.fingerprint.name;
+    let name = instance.name || instance.fingerprint.name
     if (SharedData.classifyComponents) name = classify(name)
     if (name) content = `<span style="opacity: .6;">&lt;</span>${name}<span style="opacity: .6;">&gt;</span>`
     showOverlay(rect, content)
@@ -56,8 +56,7 @@ export function unHighlight () {
  */
 
 export function getInstanceRect (instance) {
-  
-  const element = instance.el.el || instance.el;
+  const element = instance.el.el || instance.el
   if (!inDoc(element)) {
     return
   }

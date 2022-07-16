@@ -20,8 +20,8 @@ let currentInspectedId
 let bridge
 let filter = ''
 let captureCount = 0
-let isLegacy = false
-let rootUID = 0
+const isLegacy = false
+const rootUID = 0
 
 export function initBackend (_bridge) {
   bridge = _bridge
@@ -36,11 +36,11 @@ export function initBackend (_bridge) {
 
 function connect () {
   if (typeof hook.Livewire === 'undefined') {
-    return;
+    return
   }
 
-  if (! hook.Livewire.devToolsEnabled) {
-    return;
+  if (!hook.Livewire.devToolsEnabled) {
+    return
   }
 
   hook.currentTab = 'components'
@@ -64,7 +64,7 @@ function connect () {
   bridge.on('select-instance', id => {
     currentInspectedId = id
     const instance = hook.Livewire.components.componentsById[id]
-    
+
     bindToConsole(instance)
     flush()
     bridge.send('instance-selected')
@@ -81,23 +81,23 @@ function connect () {
   })
 
   bridge.on('vuex:travel-to-state', (payload) => {
-    const parsedPayload = parse(payload);
-    const parsedState = parsedPayload.state;
+    const parsedPayload = parse(payload)
+    const parsedState = parsedPayload.state
 
     Object.keys(parsedState).forEach(key => {
-      hook.Livewire.components.componentsById[parsedPayload.component].set(key, parsedState[key]);
+      hook.Livewire.components.componentsById[parsedPayload.component].set(key, parsedState[key])
     })
   })
 
   bridge.on('refresh', scan)
 
   bridge.on('enter-instance', id => {
-    let instance;
+    let instance
 
     try {
-      instance = hook.Livewire.components.componentsById[id];
+      instance = hook.Livewire.components.componentsById[id]
     } catch (err) {
-      return;
+      return
     }
 
     highlight(instance)
@@ -137,19 +137,19 @@ function connect () {
 
   window.__LIVEWIRE_DEVTOOLS_INSPECT__ = inspectInstance
 
-  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received';
+  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received'
 
   bridge.log('backend ready.')
   bridge.send('ready', livewireHook === 'message.received' ? '2.x' : '1.x') // TODO: Detect version
   console.log(
-    `%c livewire-devtools %c Detected Livewire %c`,
+    '%c livewire-devtools %c Detected Livewire %c',
     'background:#3182ce ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
     'background:#ed64a6 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
     'background:transparent'
   )
 
   hook.Livewire.hook(livewireHook, (component, payload) => {
-    flush();
+    flush()
   })
 
   scan()
@@ -162,7 +162,7 @@ function connect () {
 function scan () {
   rootInstances.length = 0
   hook.Livewire.components.components().forEach((component) => {
-    rootInstances.push(component);
+    rootInstances.push(component)
   })
   flush()
 }
@@ -313,18 +313,18 @@ function mark (instance) {
  */
 
 function getInstanceDetails (id) {
-  let instance;
+  let instance
 
   try {
     instance = hook.Livewire.components.componentsById[id]
   } catch (err) {
-    return {};
+    return {}
   }
   if (!instance) {
     return {}
   } else {
     return {
-      id: id,
+      id,
       name: instance.name || instance.fingerprint.name,
       state: getInstanceState(instance)
     }
@@ -393,7 +393,7 @@ function processState (instance) {
       key,
       value: instance.data[key],
       editable: true
-    }));
+    }))
 }
 
 /**
@@ -425,7 +425,7 @@ function bindToConsole (instance) {
     consoleBoundInstances.pop()
   }
   consoleBoundInstances.unshift(id)
-  for (var i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     window['$vm' + i] = instanceMap.get(consoleBoundInstances[i])
   }
   window.$vm = instance
@@ -469,7 +469,7 @@ export function inspectInstance (instance) {
 }
 
 function setStateValue ({ id, path, value, newKey, remove }) {
-  let instance;
+  let instance
 
   try {
     instance = hook.Livewire.components.componentsById[id]
@@ -482,7 +482,7 @@ function setStateValue ({ id, path, value, newKey, remove }) {
       if (value) {
         parsedValue = parse(value, true)
       }
-      instance.set(path, parsedValue);
+      instance.set(path, parsedValue)
     } catch (e) {
       console.error(e)
     }

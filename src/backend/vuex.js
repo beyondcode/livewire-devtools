@@ -10,7 +10,7 @@ export function initVuexBackend (hook, bridge) {
       checksum: null,
       component: component.id,
       mutation: {
-        type: (component.name || component.fingerprint.name) + " - init",
+        type: (component.name || component.fingerprint.name) + ' - init',
         payload: stringify(component.data)
       },
       timestamp: Date.now(),
@@ -21,13 +21,13 @@ export function initVuexBackend (hook, bridge) {
     })
   })
 
-  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received';
+  const livewireHook = hook.Livewire.components.hooks.availableHooks.includes('responseReceived') ? 'responseReceived' : 'message.received'
 
   if (livewireHook === 'message.received') {
     hook.Livewire.hook(livewireHook, (message, component) => {
       if (!recording) return
-      const payload = message.response;
-      
+      const payload = message.response
+
       bridge.send('vuex:mutation', {
         checksum: payload.checksum || payload.serverMemo.checksum,
         component: component.id,
@@ -67,8 +67,8 @@ export function initVuexBackend (hook, bridge) {
   })
 
   bridge.on('vuex:import-state', state => {
-    //hook.emit('vuex:travel-to-state', parse(state, true))
-    //bridge.send('vuex:init', getSnapshot())
+    // hook.emit('vuex:travel-to-state', parse(state, true))
+    // bridge.send('vuex:init', getSnapshot())
   })
 
   bridge.on('vuex:toggle-recording', enabled => {
