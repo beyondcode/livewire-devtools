@@ -1,6 +1,5 @@
 // the background script runs all the time and serves as a central message
 // hub for each vue devtools (panel + proxy + backend) instance.
-
 const ports = {}
 
 chrome.runtime.onConnect.addListener(port => {
@@ -32,16 +31,19 @@ function isNumeric (str) {
   return +str + '' === str
 }
 
-function installProxy (tabId) {
-  chrome.tabs.executeScript(tabId, {
-    file: '/build/proxy.js'
-  }, function (res) {
+function installProxy (tab) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab },
+    files: ['build/proxy.js']
+  },
+  (res) => {
     if (!res) {
-      ports[tabId].devtools.postMessage('proxy-fail')
+      ports[tab].devtools.postMessage('proxy-fail')
     } else {
-      console.log('injected proxy to tab ' + tabId)
+      console.log('injected proxy to tab ' + tab)
     }
-  })
+  }
+  )
 }
 
 function doublePipe (id, one, two) {
@@ -76,17 +78,17 @@ function doublePipe (id, one, two) {
 
 chrome.runtime.onMessage.addListener((req, sender) => {
   if (sender.tab && req.livewireDetected) {
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       tabId: sender.tab.id,
       path: {
-        16: `icons/16.png`,
-        48: `icons/48.png`,
-        128: `icons/128.png`
+        16: '/icons/16.png',
+        48: '/icons/48.png',
+        128: '/icons/128.png'
       }
     })
-    chrome.browserAction.setPopup({
+    chrome.action.setPopup({
       tabId: sender.tab.id,
-      popup: req.devToolsEnabled ? `popups/enabled.html` : `popups/disabled.html`
+      popup: req.devToolsEnabled ? 'popups/enabled.html' : 'popups/disabled.html'
     })
   }
 })
