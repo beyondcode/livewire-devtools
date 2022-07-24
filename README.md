@@ -4,6 +4,14 @@ Debug your Livewire component state from within your browser.
 
 <p align="center"><img src="https://raw.githubusercontent.com/beyondcode/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
 
+### Roadmap
+- ~~Chrome Manifest V3 support~~
+- Code clean up
+- Update dependencies and deprecated parts
+- Check FF extension
+- Vue3 && Typescript
+- ...
+
 ### Installation
 
 This extension does not yet have a stable version publicly available. 
