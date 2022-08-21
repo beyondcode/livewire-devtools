@@ -1,6 +1,6 @@
 {
   "name": "livewire-devtools",
-  "version": "1.0.3-beta.1",
+  "version": "1.0.0",
   "description": "devtools for Livewire!",
   "main": "index.js",
   "scripts": {

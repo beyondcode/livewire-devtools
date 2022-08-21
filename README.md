@@ -59,7 +59,7 @@ Debug your Livewire component state from within your browser.
 
 	~~~~
 	$ npm run build:ff
-	$ npm run run:firefox
+	$ npm run zip:ff
 	~~~~
 
 	When using Yarn, just replace `npm` with `yarn`.
