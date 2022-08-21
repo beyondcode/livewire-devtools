@@ -6,16 +6,18 @@ Debug your Livewire component state from within your browser.
 
 ### Roadmap
 - ~~Chrome Manifest V3 support~~
+- ~~Check FF extension~~
 - Code clean up
+- Bump node to v16
+- Fix tests
 - Update dependencies and deprecated parts
-- Check FF extension
 - Vue3 && Typescript
 - ...
 
 ### Installation
 
-For Chromium-based browsers (Chrome, Edge, Chromium etc.): https://chrome.google.com/webstore/detail/livewire-devtools/dnociedgpnpfnbkafoiilldfhpcjmikd
-For Firefox (on moderation). Can be installed manually. (see "Manual Installation (Firefox)" section).
+- For Chromium-based browsers (Chrome, Edge, Chromium etc.): https://chrome.google.com/webstore/detail/livewire-devtools/dnociedgpnpfnbkafoiilldfhpcjmikd
+- For Firefox (on moderation). Can be installed manually. (see "Manual Installation (Firefox)" section).
 
 
 ### Manual Installation (Chrome)
