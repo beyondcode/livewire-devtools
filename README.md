@@ -9,9 +9,8 @@ Debug your Livewire component state from within your browser.
 - ~~Check FF extension~~
 - Code clean up
 - Bump node to v16
-- Fix tests
 - Update dependencies and deprecated parts
-- Vue3 && Typescript
+- Vue3 && Typescript + Cypress tests
 - ...
 
 ### Installation
