@@ -2,7 +2,8 @@ const fs = require('fs')
 const inquirer = require('inquirer')
 const semver = require('semver')
 const pkg = require('./package.json')
-const manifest = require('./shells/chrome/manifest.json')
+const manifestChrome = require('./shells/chrome/manifest.json')
+const manifestFirefox = require('./shells/firefox/manifest.json')
 
 const curVersion = pkg.version
 
@@ -34,22 +35,32 @@ const curVersion = pkg.version
     pkg.version = newVersion
     if (isBeta) {
       const [, baseVersion, betaVersion] = /(.*)-beta\.(\w+)/.exec(newVersion)
-      manifest.version = `${baseVersion}.${betaVersion}`
-      applyIcons(manifest, '-beta')
+      manifestChrome.version = manifestFirefox.version = `${baseVersion}-${betaVersion}`
+      manifestChrome.version_name = `${baseVersion}-${betaVersion}-chrome`
+      manifestFirefox.version_name = `${baseVersion}-${betaVersion}-firefox`
     } else {
-      manifest.version = newVersion
-      applyIcons(manifest)
+      manifestChrome.version = manifestFirefox.version = newVersion
+      manifestChrome.version_name = `${newVersion}-chrome`
+      manifestFirefox.version_name = `${newVersion}-firefox`
     }
 
+    applyIcons(manifestChrome)
+    applyIcons(manifestFirefox, '', false)
+
     fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2))
-    fs.writeFileSync('./shells/chrome/manifest.json', JSON.stringify(manifest, null, 2))
+    fs.writeFileSync('./shells/chrome/manifest.json', JSON.stringify(manifestChrome, null, 2))
+    fs.writeFileSync('./shells/firefox/manifest.json', JSON.stringify(manifestFirefox, null, 2))
   } else {
     process.exit(1)
   }
 })()
 
-function applyIcons (manifest, suffix = '') {
+function applyIcons (manifest, suffix = '', isChrome = true) {
   [16, 48, 128].forEach(size => {
-    manifest.icons[size] = `icons/${size}${suffix}.png`
+    if (isChrome) {
+      manifest.icons[size] = `/icons/${size}${suffix}.png`
+    } else {
+      manifest.icons[size] = `icons/${size}${suffix}.png`
+    }
   })
 }
