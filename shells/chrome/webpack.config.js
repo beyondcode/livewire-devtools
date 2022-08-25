@@ -5,7 +5,6 @@ module.exports = createConfig({
   entry: {
     hook: './src/hook.js',
     'hook-exec': './src/hook-exec.js',
-    // 'detect-chrome': '../../src/backend/detect.js',
     devtools: './src/devtools.js',
     'service-worker': './src/service-worker.js',
     'devtools-background': './src/devtools-background.js',

@@ -16,8 +16,7 @@ Debug your Livewire component state from within your browser.
 ### Installation
 
 - For Chromium-based browsers (Chrome, Edge, Chromium etc.): https://chrome.google.com/webstore/detail/livewire-devtools/dnociedgpnpfnbkafoiilldfhpcjmikd
-- For Firefox (on moderation). Can be installed manually. (see "Manual Installation (Firefox)" section).
-
+- For Firefox: https://addons.mozilla.org/ru/firefox/addon/livewire-devtools/
 
 ### Manual Installation (Chrome)
 
