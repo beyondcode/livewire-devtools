@@ -4,14 +4,12 @@ const createConfig = require('../createConfig')
 module.exports = createConfig({
   entry: {
     hook: './src/hook.js',
-    'hook-exec': './src/hook-exec.js',
     devtools: './src/devtools.js',
-    'service-worker': './src/service-worker.js',
+    background: './src/background.js',
     'devtools-background': './src/devtools-background.js',
     backend: './src/backend.js',
     proxy: './src/proxy.js',
-    detector: './src/detector.js',
-    'detector-exec': './src/detector-exec.js'
+    detector: './src/detector.js'
   },
   output: {
     path: path.join(__dirname, 'build'),

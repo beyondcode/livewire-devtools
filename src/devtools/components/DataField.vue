@@ -344,7 +344,7 @@ export default {
       } else if (this.valueType.includes('native')) {
         return escape(specialTypeRE.exec(value)[2])
       } else if (typeof value === 'string') {
-        var typeMatch = value.match(rawTypeRE)
+        const typeMatch = value.match(rawTypeRE)
         if (typeMatch) {
           return escape(typeMatch[1])
         } else {

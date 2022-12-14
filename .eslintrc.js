@@ -18,5 +18,9 @@ module.exports = {
       'singleline': 'never',
       'multiline': 'always'
     }]
-  }
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+  },
 }

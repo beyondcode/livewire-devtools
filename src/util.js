@@ -17,7 +17,7 @@ function cached (fn) {
   }
 }
 
-var classifyRE = /(?:^|[-_/])(\w)/g
+const classifyRE = /(?:^|[-_/])(\w)/g
 export const classify = cached((str) => {
   return str && str.replace(classifyRE, toUpper)
 })
@@ -33,8 +33,8 @@ function toUpper (_, c) {
 
 export function inDoc (node) {
   if (!node) return false
-  var doc = node.ownerDocument.documentElement
-  var parent = node.parentNode
+  const doc = node.ownerDocument.documentElement
+  const parent = node.parentNode
   return doc === node ||
     doc === parent ||
     !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
@@ -50,13 +50,13 @@ export const NEGATIVE_INFINITY = '__vue_devtool_negative_infinity__'
 export const NAN = '__vue_devtool_nan__'
 
 export const SPECIAL_TOKENS = {
-  'true': true,
-  'false': false,
-  'undefined': UNDEFINED,
-  'null': null,
+  true: true,
+  false: false,
+  undefined: UNDEFINED,
+  null: null,
   '-Infinity': NEGATIVE_INFINITY,
-  'Infinity': INFINITY,
-  'NaN': NAN
+  Infinity: INFINITY,
+  NaN: NAN
 }
 
 export function specialTokenToString (value) {
@@ -240,9 +240,11 @@ export function getCustomComponentDefinitionDetails (def) {
       type: 'component-definition',
       display,
       tooltip: 'Component definition',
-      ...def.__file ? {
-        file: def.__file
-      } : {}
+      ...def.__file
+        ? {
+            file: def.__file
+          }
+        : {}
     }
   }
 }
@@ -259,7 +261,8 @@ export function getCustomFunctionDetails (func) {
   // Trim any excess whitespace from the argument string
   const match = matches && matches[0]
   const args = typeof match === 'string'
-    ? `(${match.substr(1, match.length - 2).split(',').map(a => a.trim()).join(', ')})` : '(?)'
+    ? `(${match.substr(1, match.length - 2).split(',').map(a => a.trim()).join(', ')})`
+    : '(?)'
   const name = typeof func.name === 'string' ? func.name : ''
   return {
     _custom: {

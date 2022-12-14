@@ -2,15 +2,23 @@
 
 Debug your Livewire component state from within your browser.
 
-<p align="center"><img src="https://raw.githubusercontent.com/beyondcode/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/rw4lll/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
+
+### Roadmap
+- ~~Chrome Manifest V3 support~~
+- ~~Check FF extension~~
+- Code clean up
+- Bump node to v16
+- Update dependencies and deprecated parts
+- Vue3 && Typescript + Cypress tests
+- ...
 
 ### Installation
 
-This extension does not yet have a stable version publicly available. 
-You can download the [pre-release](https://github.com/beyondcode/livewire-devtools/releases) version and manually install it.
+- For Chromium-based browsers (Chrome, Edge, Chromium etc.): https://chrome.google.com/webstore/detail/livewire-devtools/dnociedgpnpfnbkafoiilldfhpcjmikd
+- For Firefox: https://addons.mozilla.org/ru/firefox/addon/livewire-devtools/
 
-
-### Manual Installation
+### Manual Installation (Chrome)
 
 1. Clone this repo
 2. `npm install` (Or `yarn install` if you are using yarn as the package manager)
@@ -24,9 +32,9 @@ You can download the [pre-release](https://github.com/beyondcode/livewire-devtoo
 1. Clone this repo
 2. `npm install`
 3. `npm run dev`
-4. A plain shell with a test app will be available at `localhost:8080`.
+4. A plain shell with a test app will be available at `localhost:8100`.
 
-### Testing as Firefox addon
+### Manual Installation (Firefox)
 
  1. Install `web-ext`
 
@@ -49,11 +57,13 @@ You can download the [pre-release](https://github.com/beyondcode/livewire-devtoo
  2. Build and run in Firefox
 
 	~~~~
-	$ npm run build
-	$ npm run run:firefox
+	$ npm run build:ff
+	$ npm run zip:ff
 	~~~~
 
 	When using Yarn, just replace `npm` with `yarn`.
+	
+ 3. Open "about:addons" in Firefox browser, then click "Install from file" and select built zip-folder.	
 
 
 ### License

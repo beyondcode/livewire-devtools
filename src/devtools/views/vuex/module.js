@@ -30,11 +30,11 @@ const mutations = {
   },
   'RECEIVE_MUTATION' (state, entry) {
     const historyWithChecksum = state.history.filter(history => {
-      return history.checksum === entry.checksum;
+      return history.checksum === entry.checksum
     })
 
     if (historyWithChecksum.length > 0) {
-      return;
+      return
     }
 
     state.history.push(entry)
