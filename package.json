@@ -18,22 +18,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rw4lll/livewire-devtools.git"
+    "url": "git+https://github.com/beyondcode/livewire-devtools.git"
   },
   "keywords": [
     "livewire",
     "devtools",
     "laravel"
   ],
-  "contributors": [
-    "Marcel Pociot",
-    "Sergei Shitikov"
-  ],
+  "author": "Marcel Pociot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rw4lll/livewire-devtools/issues"
+    "url": "https://github.com/beyondcode/livewire-devtools/issues"
   },
-  "homepage": "https://github.com/rw4lll/livewire-devtools#readme",
+  "homepage": "https://github.com/beyondcode/livewire-devtools#readme",
   "dependencies": {
     "@vue/ui": "^0.5.1",
     "circular-json-es6": "^2.0.1",

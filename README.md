@@ -2,16 +2,7 @@
 
 Debug your Livewire component state from within your browser.
 
-<p align="center"><img src="https://raw.githubusercontent.com/rw4lll/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
-
-### Roadmap
-- ~~Chrome Manifest V3 support~~
-- ~~Check FF extension~~
-- Code clean up
-- Bump node to v16
-- Update dependencies and deprecated parts
-- Vue3 && Typescript + Cypress tests
-- ...
+<p align="center"><img src="https://raw.githubusercontent.com/beyondcode/livewire-devtools/master/media/screenshot-shadow.png" alt="screenshot"></p>
 
 ### Installation
 
