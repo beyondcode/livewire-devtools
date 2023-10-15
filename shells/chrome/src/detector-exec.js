@@ -1,19 +1,22 @@
-import { installToast } from 'src/backend/toast'
-import { isFirefox } from 'src/devtools/env'
+import { installToast } from "src/backend/toast";
+import { isFirefox } from "src/devtools/env";
 // import { detect } from 'src/backend/detect'
 
-function detect (win) {
+function detect(win) {
   setTimeout(() => {
     if (!win.Livewire) {
       return;
     }
-    win.postMessage({
-      livewireDetected: true,
-      devToolsEnabled: win.Livewire.devToolsEnabled || false
-    }, '*')
+    win.postMessage(
+      {
+        livewireDetected: true,
+        devToolsEnabled: win.Livewire.devToolsEnabled || true, //TODO: check new API, not exist anymore
+      },
+      "*"
+    );
 
-    win.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__.emit('init', win.Livewire);
-  }, 100)
+    win.__LIVEWIRE_DEVTOOLS_GLOBAL_HOOK__.emit("init", win.Livewire);
+  }, 100);
 }
 
 // function installScript (fn) {
@@ -34,6 +37,6 @@ function detect (win) {
 
 // inject the hook
 if (document instanceof HTMLDocument) {
-  detect(window)
-  installToast(window)
+  detect(window);
+  installToast(window);
 }

@@ -1,90 +1,97 @@
-const path = require('path')
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const { VueLoaderPlugin } = require('vue-loader')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const path = require("path");
+const webpack = require("webpack");
+const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = (config, target = { chrome: 52, firefox: 48 }) => {
   const bubleOptions = {
     target,
-    objectAssign: 'Object.assign',
+    objectAssign: "Object.assign",
     transforms: {
       forOf: false,
-      modules: false
-    }
-  }
+      modules: false,
+    },
+  };
 
   const baseConfig = {
     resolve: {
       alias: {
-        src: path.resolve(__dirname, '../src'),
-        views: path.resolve(__dirname, '../src/devtools/views'),
-        components: path.resolve(__dirname, '../src/devtools/components')
-      }
+        src: path.resolve(__dirname, "../src"),
+        views: path.resolve(__dirname, "../src/devtools/views"),
+        components: path.resolve(__dirname, "../src/devtools/components"),
+      },
+      fallback: {
+        path: false,
+      },
     },
     module: {
       rules: [
         {
           test: /\.js$/,
-          loader: 'buble-loader',
+          loader: "babel-loader",
           exclude: /node_modules|vue\/dist|vuex\/dist/,
-          options: bubleOptions
+          options: {
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  targets: {
+                    chrome: 52,
+                    firefox: 48,
+                  },
+                  useBuiltIns: "usage",
+                  corejs: 3,
+                },
+              ],
+            ],
+          },
         },
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
+          loader: "vue-loader",
           options: {
             compilerOptions: {
-              preserveWhitespace: false
+              preserveWhitespace: false,
             },
-            transpileOptions: bubleOptions
-          }
+            transpileOptions: bubleOptions,
+          },
         },
         {
           test: /\.css$/,
-          use: [
-            'vue-style-loader',
-            'css-loader'
-          ]
+          use: ["vue-style-loader", "css-loader"],
         },
         {
           test: /\.styl(us)?$/,
-          use: [
-            'vue-style-loader',
-            'css-loader',
-            'stylus-loader'
-          ]
+          use: ["vue-style-loader", "css-loader", "stylus-loader"],
         },
         {
           test: /\.(png|woff2)$/,
-          loader: 'url-loader?limit=0'
-        }
-      ]
+          type: "asset",
+        },
+      ],
     },
     performance: {
-      hints: false
+      hints: false,
     },
     plugins: [
       new VueLoaderPlugin(),
-      ...(process.env.VUE_DEVTOOL_TEST ? [] : [new FriendlyErrorsPlugin()]),
       new webpack.DefinePlugin({
-        'process.env.RELEASE_CHANNEL': JSON.stringify(process.env.RELEASE_CHANNEL || 'stable')
-      })
+        "process.env.RELEASE_CHANNEL": JSON.stringify(
+          process.env.RELEASE_CHANNEL || "stable"
+        ),
+      }),
     ],
     devServer: {
-      port: process.env.PORT
-    }
-  }
+      port: process.env.PORT,
+    },
+  };
 
-  if (process.env.NODE_ENV === 'production') {
-    const UglifyPlugin = require('uglifyjs-webpack-plugin')
+  if (process.env.NODE_ENV === "production") {
     baseConfig.plugins.push(
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"'
-      }),
-      new UglifyPlugin()
-    )
+        "process.env.NODE_ENV": '"production"',
+      })
+    );
   }
 
-  return merge(baseConfig, config)
-}
+  return Object.assign({}, baseConfig, config);
+};
